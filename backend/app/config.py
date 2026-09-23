@@ -1,6 +1,7 @@
 """Application settings loaded from environment / .env file."""
 from functools import lru_cache
 
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -17,6 +18,16 @@ class Settings(BaseSettings):
     require_auth: bool = False
 
     database_url: str = "postgresql+psycopg://log_analyzer:log_analyzer@localhost:5432/log_analyzer"
+
+    @field_validator("database_url")
+    @classmethod
+    def _normalize_db_url(cls, v: str) -> str:
+        # The platform injects postgresql://... which SQLAlchemy maps to
+        # psycopg2; we ship psycopg (v3), so pin the driver explicitly.
+        for scheme in ("postgresql://", "postgres://"):
+            if v.startswith(scheme):
+                return v.replace(scheme, "postgresql+psycopg://", 1)
+        return v
 
     minio_endpoint: str = "localhost:9000"
     minio_access_key: str = "minioadmin"

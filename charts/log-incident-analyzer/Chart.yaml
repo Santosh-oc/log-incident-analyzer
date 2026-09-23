@@ -2,8 +2,8 @@ apiVersion: v2
 name: log-incident-analyzer
 description: Upload JSON-lines log files, group them into incidents, and get LLM-generated plain-language summaries.
 type: application
-version: 0.1.0
-appVersion: "0.1.0"
+version: 0.1.1
+appVersion: "0.1.1"
 
 annotations:
   dkubex: |
