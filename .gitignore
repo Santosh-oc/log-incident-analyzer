@@ -1,0 +1,11 @@
+node_modules/
+frontend/dist/
+frontend/tsconfig.tsbuildinfo
+backend/.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.env
+*.tgz
+charts/index.yaml
+.dkubex-app.env

@@ -1,0 +1,15 @@
+node_modules
+frontend/node_modules
+frontend/dist
+frontend/tsconfig.tsbuildinfo
+backend/.venv
+backend/.pytest_cache
+**/__pycache__
+**/.pytest_cache
+.env
+*.env
+!frontend/.env.example
+.git
+charts
+*.tgz
+.pytest_cache

@@ -1,0 +1,34 @@
+apiVersion: v2
+name: log-incident-analyzer
+description: Upload JSON-lines log files, group them into incidents, and get LLM-generated plain-language summaries.
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+
+annotations:
+  dkubex: |
+    url: "/log-incident-analyzer"
+    displayName: Log Incident Analyzer
+    icon: "https://raw.githubusercontent.com/Santosh-oc/log-incident-analyzer/main/assets/icon.svg"
+    docs: "https://github.com/Santosh-oc/log-incident-analyzer"
+    images:
+      - "https://raw.githubusercontent.com/Santosh-oc/log-incident-analyzer/main/assets/screenshot-1.png"
+    description: "Turns uploaded JSON-lines log files into grouped incidents with LLM-generated plain-language summaries."
+    categories:
+      - "Monitoring & Observability"
+    roles:
+      - "admin"
+      - "user"
+    resources:
+      cpu:
+        min: "100m"
+        recommended: "250m"
+      memory:
+        min: "256Mi"
+        recommended: "512Mi"
+    dependencies:
+      - postgres
+      - minio
+    routing:
+      type: basepath
+    timeout: "10m"

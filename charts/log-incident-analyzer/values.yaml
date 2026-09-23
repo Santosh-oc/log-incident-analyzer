@@ -1,0 +1,39 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/santosh-oc/log-incident-analyzer
+  tag: "0.1.0"
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+
+service:
+  type: ClusterIP
+  port: 8080
+
+# Hostname for the HTTPRoute. "*" or empty means match any host.
+hostname: "*"
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+# Injected by DKubeX (declared in the dkubex annotation `dependencies`).
+postgres:
+  db_url: ""
+
+minio:
+  endpoint: ""
+  access_key: ""
+  secret_key: ""
+  bucket: ""
+
+# LLM endpoint (OpenAI-compatible). Configure per installation.
+llm:
+  base_url: ""
+  model: ""
+  api_key: ""
