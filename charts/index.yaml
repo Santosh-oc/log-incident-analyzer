@@ -29,8 +29,46 @@ entries:
           type: basepath
         timeout: "10m"
     apiVersion: v2
+    appVersion: 0.1.2
+    created: "2026-09-24T05:26:16.311852596Z"
+    description: Upload JSON-lines log files, group them into incidents, and get LLM-generated
+      plain-language summaries.
+    digest: 0b149ca9474209a4c4930c1e302f8819fb34e9ec6a7b0e4897724dcc921c5e33
+    name: log-incident-analyzer
+    type: application
+    urls:
+    - https://github.com/Santosh-oc/log-incident-analyzer/raw/helm-index/charts/log-incident-analyzer-0.1.2.tgz
+    version: 0.1.2
+  - annotations:
+      dkubex: |
+        url: "/log-incident-analyzer"
+        displayName: Log Incident Analyzer
+        icon: "https://raw.githubusercontent.com/Santosh-oc/log-incident-analyzer/main/assets/icon.svg"
+        docs: "https://github.com/Santosh-oc/log-incident-analyzer"
+        images:
+          - "https://raw.githubusercontent.com/Santosh-oc/log-incident-analyzer/main/assets/screenshot-1.png"
+        description: "Turns uploaded JSON-lines log files into grouped incidents with LLM-generated plain-language summaries."
+        categories:
+          - "Monitoring & Observability"
+        roles:
+          - "admin"
+          - "user"
+        resources:
+          cpu:
+            min: "100m"
+            recommended: "250m"
+          memory:
+            min: "256Mi"
+            recommended: "512Mi"
+        dependencies:
+          - postgres
+          - minio
+        routing:
+          type: basepath
+        timeout: "10m"
+    apiVersion: v2
     appVersion: 0.1.1
-    created: "2026-09-23T18:56:30.654474957Z"
+    created: "2026-09-24T05:26:16.311541651Z"
     description: Upload JSON-lines log files, group them into incidents, and get LLM-generated
       plain-language summaries.
     digest: f427ae5769aee3c4ed440453fe2371e55747e79e323cc4d4bf77bb4ef411b676
@@ -68,7 +106,7 @@ entries:
         timeout: "10m"
     apiVersion: v2
     appVersion: 0.1.0
-    created: "2026-09-23T18:56:30.654067706Z"
+    created: "2026-09-24T05:26:16.311208338Z"
     description: Upload JSON-lines log files, group them into incidents, and get LLM-generated
       plain-language summaries.
     digest: ec18d0efb06db2eeee2e620bb872d9dad47d320c09b689a1c6a47d8cb4e128a8
@@ -77,4 +115,4 @@ entries:
     urls:
     - https://github.com/Santosh-oc/log-incident-analyzer/raw/helm-index/charts/log-incident-analyzer-0.1.0.tgz
     version: 0.1.0
-generated: "2026-09-23T18:56:30.653444085Z"
+generated: "2026-09-24T05:26:16.310704065Z"
