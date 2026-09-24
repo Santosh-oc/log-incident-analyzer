@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: ghcr.io/santosh-oc/log-incident-analyzer
-  tag: "0.1.1"
+  tag: "0.1.2"
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -32,8 +32,9 @@ minio:
   secret_key: ""
   bucket: ""
 
-# LLM endpoint (OpenAI-compatible). Configure per installation.
+# LLM endpoint (OpenAI-compatible). Defaults to the cluster's securellm
+# service; override per installation. Set api_key to enable analysis.
 llm:
-  base_url: ""
-  model: ""
+  base_url: "http://securellm.dkubex-apps.svc.cluster.local/securellm/v1"
+  model: "dkubex/qwen3-8-27b-fp8"
   api_key: ""

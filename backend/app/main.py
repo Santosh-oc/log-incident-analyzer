@@ -100,8 +100,25 @@ api = FastAPI(title="Log Incident Analyzer API", version="0.1.0")
 api.include_router(health.router)
 api.include_router(files.router)
 
-DIST = Path(__file__).resolve().parent.parent.parent / "frontend" / "dist"
-if DIST.is_dir():
+
+def _find_dist() -> Path | None:
+    # FRONTEND_DIST wins; otherwise probe the known layouts:
+    #   workspace: <root>/backend/app/main.py -> <root>/frontend/dist
+    #   image:     /app/app/main.py           -> /app/frontend/dist
+    candidates: list[Path] = []
+    if os.environ.get("FRONTEND_DIST"):
+        candidates.append(Path(os.environ["FRONTEND_DIST"]))
+    here = Path(__file__).resolve()
+    candidates.append(here.parent.parent.parent / "frontend" / "dist")
+    candidates.append(here.parent.parent / "frontend" / "dist")
+    for candidate in candidates:
+        if (candidate / "index.html").is_file():
+            return candidate
+    return None
+
+
+DIST = _find_dist()
+if DIST is not None:
 
     @api.get("/{path:path}", include_in_schema=False)
     def spa_fallback(path: str):
@@ -131,10 +148,10 @@ def on_startup() -> None:
 # base; static assets are mounted first so they win over the catch-all.
 BASE = (settings.base_path or "").strip("/")
 if BASE:
-    if DIST.is_dir():
+    if DIST is not None:
         app.mount(f"/{BASE}/assets", StaticFiles(directory=DIST / "assets"), name="assets")
     app.mount(f"/{BASE}", api)
 else:
-    if DIST.is_dir():
+    if DIST is not None:
         app.mount("/assets", StaticFiles(directory=DIST / "assets"), name="assets")
     app.mount("/", api)
